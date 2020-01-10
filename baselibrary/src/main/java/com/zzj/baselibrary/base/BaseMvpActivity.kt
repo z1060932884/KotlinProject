@@ -1,17 +1,35 @@
 package com.zzj.baselibrary.base
 
 import android.os.Bundle
+import androidx.lifecycle.Lifecycle
+import org.jetbrains.annotations.NotNull
 
-open abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
+abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
 
     lateinit var mPresenter: P
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mPresenter = createPresenter()
+        initLifecycleObserver(this.lifecycle)
+        attachPresenterView()
 
     }
 
+
+    private fun initLifecycleObserver(@NotNull lifecycle: Lifecycle) {
+//        mPresenter.lifecycleOwner(lifecycle)
+        lifecycle.addObserver(mPresenter)
+//        mPresenter?.let { lifecycle.addObserver(it) }
+    }
+
+
+
+
+    abstract fun createPresenter():P
+
+    abstract fun attachPresenterView()
 
     override fun onLoading(message: String) {
 
@@ -26,3 +44,4 @@ open abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseV
     }
 
 }
+
