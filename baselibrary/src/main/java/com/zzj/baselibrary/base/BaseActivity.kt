@@ -16,6 +16,10 @@ abstract class BaseActivity : AppCompatActivity(){
             setContentView(getContainerLayout())
         }
 
+        initView()
+        initData()
+        initListener()
+
     }
 
     protected abstract fun initListener()

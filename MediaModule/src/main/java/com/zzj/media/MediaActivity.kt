@@ -34,7 +34,7 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
     }
 
     override fun initView() {
-
+        toast("media界面进来了")
         tvMedia.setOnClickListener {
             toast("media")
             mPresenter.getData()

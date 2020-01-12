@@ -2,18 +2,18 @@ package com.zzj.baselibrary.base
 
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
+import com.uber.autodispose.AutoDisposeConverter
+import com.zzj.baselibrary.rx.bindLifecycle
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import java.lang.ref.WeakReference
-import java.lang.reflect.InvocationHandler
-import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
 @Suppress("UNCHECKED_CAST")
 open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
 
 
-    var lifecycleOwner: LifecycleOwner? = null
+    lateinit var lifecycleOwner: LifecycleOwner
 
 
 
@@ -45,7 +45,9 @@ open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
 
     }
 
-
+    protected fun <T> bindLifecycle(): AutoDisposeConverter<T> {
+        return bindLifecycle(lifecycleOwner!!)
+    }
     /**
      * 解绑View
      */
