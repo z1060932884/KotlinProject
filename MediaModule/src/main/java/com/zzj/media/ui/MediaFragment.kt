@@ -1,14 +1,15 @@
-package com.zzj.media
+package com.zzj.media.ui
 
 import android.content.Context
+import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import com.zzj.baselibrary.base.BaseMvpActivity
 import com.zzj.baselibrary.base.BaseMvpFragment
+import com.zzj.media.R
 import com.zzj.media.presenter.MediaPresenter
 import com.zzj.media.presenter.view.MediaView
-import kotlinx.android.synthetic.main.act_media.*
+import kotlinx.android.synthetic.main.media_fragment_media.view.*
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.UIUtil
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -17,11 +18,15 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
-import org.jetbrains.anko.toast
-import java.util.*
+import java.util.ArrayList
 
-class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
+class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
+    override fun getDataSuccess(paramter: String) {
+    }
 
+    override fun createPresenter(): MediaPresenter {
+        return MediaPresenter()
+    }
     //https://1090ys.com/
 
     private val titles = arrayOf("首页", "电影","美剧","韩剧","日剧","国产剧","动漫")
@@ -30,29 +35,18 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
     override fun attachPresenterView() {
         mPresenter.attachView(this)
     }
-
-
-    override fun getDataSuccess(paramter: String) {
-        toast("获取数据成功")
-    }
-
-
     override fun initListener() {
-
     }
 
-    override fun getContainerLayout(): Int {
-
-        return R.layout.act_media
+    override fun getContainerLayout(savedInstanceState: Bundle?): Int {
+        return R.layout.media_fragment_media
     }
-
 
     override fun initData() {
-        mPresenter.getData()
     }
 
     override fun initView() {
-//        setHasOptionsMenu(true)
+        //        setHasOptionsMenu(true)
 //        ToolbarHelper(this, toolbar, "", false)
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
@@ -61,9 +55,9 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
-        var mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
-        contentViewPager.setAdapter(mViewPagerAdapter)
-        val commonNavigator = CommonNavigator(this)
+        var mViewPagerAdapter = ViewPagerAdapter(fragmentManager!!)
+        rootView.contentViewPager.setAdapter(mViewPagerAdapter)
+        val commonNavigator = CommonNavigator(mActivity)
         commonNavigator.scrollPivotX = 0.25f
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
             override fun getCount(): Int {
@@ -76,7 +70,7 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
                 simplePagerTitleView.normalColor = resources.getColor(R.color.base_text_light)
                 simplePagerTitleView.selectedColor = resources.getColor(R.color.base_text_dark)
                 simplePagerTitleView.textSize = 16f
-                simplePagerTitleView.setOnClickListener { contentViewPager.setCurrentItem(index) }
+                simplePagerTitleView.setOnClickListener { rootView.contentViewPager.setCurrentItem(index) }
                 return simplePagerTitleView
             }
 
@@ -88,12 +82,8 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
                 return indicator
             }
         }
-        tabSegment.setNavigator(commonNavigator)
-        ViewPagerHelper.bind(tabSegment, contentViewPager)
-    }
-
-    override fun createPresenter(): MediaPresenter {
-        return MediaPresenter()
+        rootView.tabSegment.setNavigator(commonNavigator)
+        ViewPagerHelper.bind(rootView.tabSegment, rootView.contentViewPager)
     }
 
     inner class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
@@ -112,5 +102,4 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
             return fragments.size
         }
     }
-
 }

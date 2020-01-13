@@ -60,6 +60,29 @@ dependencies {
     api 'com.uber.autodispose:autodispose-lifecycle:1.4.0'
     api 'com.uber.autodispose:autodispose-android-archcomponents:1.4.0'
 
+    api 'org.greenrobot:eventbus:3.0.0'
+
+    // This is the use of androidx, if you are using the android.support: fragmentationx -> fragmentation
+    api 'me.yokeyword:fragmentationx:1.0.1'
+
+    // If you don't want to extends SupportActivity/Fragment and would like to customize your own support, just rely on fragmentation-core
+
+    // implementation 'me.yokeyword:fragmentationx-core:1.0.1'
+
+    // To get SwipeBack feature, rely on both fragmentation & fragmentation-swipeback
+    api 'me.yokeyword:fragmentationx:1.0.1'
+
+    // Swipeback is based on fragmentation. Refer to SwipeBackActivity/Fragment for your Customized SupportActivity/Fragment
+    api 'me.yokeyword:fragmentationx-swipeback:1.0.1'
+
+    // To simplify the communication between Fragments.
+    api 'me.yokeyword:eventbus-activity-scope:1.1.0'
+
+    // 基础依赖包，必须要依赖
+    api 'com.gyf.immersionbar:immersionbar:3.0.0'
+
+    // fragment快速实现（可选）
+    api 'com.gyf.immersionbar:immersionbar-components:3.0.0'
     //工具类
     api 'com.blankj:utilcode:1.23.4'
     api 'net.qiujuer.genius:res:2.1.1'

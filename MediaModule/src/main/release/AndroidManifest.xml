@@ -2,7 +2,7 @@
     package="com.zzj.media" >
     <application
        >
-        <activity android:name=".MediaActivity">
+        <activity android:name=".ui.MediaActivity">
 
         </activity>
     </application>

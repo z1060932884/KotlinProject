@@ -5,8 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import me.yokeyword.fragmentation.SupportFragment
 
-abstract class BaseFragment : Fragment(){
+abstract class BaseFragment : SupportFragment(){
 
     lateinit var rootView:View
 

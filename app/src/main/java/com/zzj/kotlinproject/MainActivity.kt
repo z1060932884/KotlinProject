@@ -3,7 +3,7 @@ package com.zzj.kotlinproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.zzj.media.MediaActivity
+import com.zzj.media.ui.MediaActivity
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         register.setOnClickListener {
-            startActivity(Intent(this,MediaActivity().javaClass))
+            startActivity(Intent(this, MediaActivity().javaClass))
         }
     }
 }

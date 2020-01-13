@@ -2,12 +2,13 @@ package com.zzj.baselibrary.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import me.yokeyword.fragmentation.SupportActivity
 
 
 /**
  * base
  */
-abstract class BaseActivity : AppCompatActivity(){
+abstract class BaseActivity : SupportActivity(){
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
