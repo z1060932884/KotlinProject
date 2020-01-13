@@ -48,6 +48,7 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
 
 
     override fun initData() {
+        mPresenter.getData()
     }
 
     override fun initView() {

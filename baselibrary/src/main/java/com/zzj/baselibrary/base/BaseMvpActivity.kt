@@ -14,12 +14,15 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
         mPresenter = createPresenter()
         initLifecycleObserver(this.lifecycle)
         attachPresenterView()
+        initView()
+        initData()
+        initListener()
 
     }
 
 
     private fun initLifecycleObserver(@NotNull lifecycle: Lifecycle) {
-//        mPresenter.lifecycleOwner(lifecycle)
+        mPresenter.lifecycleOwner = this
         lifecycle.addObserver(mPresenter)
 //        mPresenter?.let { lifecycle.addObserver(it) }
     }

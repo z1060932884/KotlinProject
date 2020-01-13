@@ -9,7 +9,6 @@ import org.jetbrains.anko.error
 import java.lang.ref.WeakReference
 import java.lang.reflect.Proxy
 
-@Suppress("UNCHECKED_CAST")
 open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
 
 

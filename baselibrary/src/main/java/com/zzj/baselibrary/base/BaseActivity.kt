@@ -16,9 +16,6 @@ abstract class BaseActivity : AppCompatActivity(){
             setContentView(getContainerLayout())
         }
 
-        initView()
-        initData()
-        initListener()
 
     }
 
