@@ -5,6 +5,6 @@ import com.zzj.media.data.MovieBean
 
 interface MediaHomeView :BaseView{
 
-    fun getDataSuccess(movieBeans: List<MovieBean>)
+    fun getBannerDataSuccess(movieBeans: List<MovieBean>)
 
 }

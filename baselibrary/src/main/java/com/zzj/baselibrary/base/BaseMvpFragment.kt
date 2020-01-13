@@ -11,7 +11,7 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(),BaseView{
      var TAG = ""
      lateinit var mPresenter: P
 
-     lateinit var mActivity: Activity
+    lateinit var mActivity: Activity
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

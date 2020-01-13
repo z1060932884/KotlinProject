@@ -21,7 +21,7 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
 
 
     fun getData(){
-
+        var type = ""
         Observable.create<List<MovieBean>> {
             val doc:Document
             val connect:Connection = Jsoup.connect(BASE_URL)
@@ -41,14 +41,18 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
                 movieBean.picture = subBracketContent(picture)
                 bannerList.add(movieBean)
             }
-            getView().getDataSuccess(bannerList)
+            type = "1"
+            it.onNext(bannerList)
 
-            it.onComplete()
         }
             .transform(lifecycleOwner)
             .subscribe(Consumer {
                 debug { "执行完成" }
+                if(type.equals("1")){
+                    getView().getBannerDataSuccess(it)
+                }
             }, Consumer {
+                LogUtils.e(TAG,it.message)
                 ToastUtils.showShort(it.message)
             })
 

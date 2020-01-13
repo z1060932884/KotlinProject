@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <cn.bingoogolapple.bgabanner.BGABanner
+        android:id="@+id/bgaBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        app:banner_indicatorGravity="bottom|right"
+        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+        app:banner_isNumberIndicator="true"
+        app:banner_numberIndicatorBackground="@drawable/media_shape_number_indicator_background"
+        app:banner_numberIndicatorTextColor="@color/white"
+        app:banner_numberIndicatorTextSize="10sp"
+        app:banner_pointAutoPlayAble="true"
+        android:background="@color/base_text_light"
+        app:banner_pointContainerBackground="@color/trans"
+        app:banner_transitionEffect="defaultEffect"
         />
 
     <TextView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="首页萨达所大多撒所多"/>
