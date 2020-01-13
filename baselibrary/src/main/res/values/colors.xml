@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+<!--    <color name="colorPrimary">@color/base_purple</color>-->
+<!--    <color name="colorPrimaryDark">@color/base_purple</color>-->
+    <color name="colorAccent">#74aaff</color>
+    <!--基础主色-->
+    <!--toolbar 等控件颜色-->
+    <color name="colorPrimary">#fdfdfe</color>
+    <!--//状态栏-->
+    <color name="colorPrimaryDark">#fdfdfe</color>
+
+<!--    <color name="base_purple">#9c52ff</color>-->
+    <color name="base_purple">#74aaff</color>
+    <color name="base_red">#FD66E7</color>
+    <color name="base_green">#4D9FFB</color>
+    <color name="base_blue">#4cf2fc</color>
+    <color name="base_yellow">#ffed9f</color>
+    <color name="base_text_dark">#242529</color>
+    <color name="base_text_light">#b8b6ce</color>
+
+    <color name="common_blue_end">#98a0ff</color>
+    <color name="common_blue_start">#74aaff</color>
+    <color name="common_red_start">#ff8d7a</color>
+    <color name="common_red_end">#ff64a2</color>
+
+    <!--背景色-->
+    <color name="windowsBackground">#f6f8fa</color>
+    <color name="windowsBackgroundLight">#f8f8f8</color>
+
+    <color name="colorAccentAlpha">#801572fc</color>
 </resources>

@@ -22,7 +22,14 @@ allprojects {
         google()
         jcenter()
         mavenCentral()
+        maven { url 'https://maven.google.com' }
+        maven { url "https://jitpack.io" }
 
+        maven {
+            url "https://jcenter.bintray.com"
+        }
+
+        maven{ url 'http://maven.aliyun.com/nexus/content/groups/public/'}
     }
 }
 
@@ -32,4 +39,25 @@ task clean(type: Delete) {
 
 ext{
     xMultidexVersion = "2.0.1"
+
+    configs = [
+            compileSdkVersion: 28,
+            minSdkVersion    : 15,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : '1.0.0',
+    ]
+
+    supportLibraryVersion = '1.0.0'
+
+    flexboxVersion = '0.3.0'
+
+    libs = [appcompat_v7     : "androidx.appcompat:appcompat:$supportLibraryVersion",
+            support_v4       : "androidx.legacy:legacy-support-v4:$supportLibraryVersion",
+            recyclerView    : "androidx.recyclerview:recyclerview:$supportLibraryVersion",
+            cardview        : "androidx.cardview:cardview:$supportLibraryVersion",
+            design          : "com.google.android.material:material:$supportLibraryVersion"
+    ]
 }
+
+apply from: "config.gradle"

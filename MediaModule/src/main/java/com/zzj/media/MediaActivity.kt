@@ -1,14 +1,31 @@
 package com.zzj.media
 
+import android.content.Context
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.zzj.baselibrary.base.BaseMvpActivity
+import com.zzj.baselibrary.base.BaseMvpFragment
 import com.zzj.media.presenter.MediaPresenter
 import com.zzj.media.presenter.view.MediaView
 import kotlinx.android.synthetic.main.act_media.*
+import net.lucode.hackware.magicindicator.ViewPagerHelper
+import net.lucode.hackware.magicindicator.buildins.UIUtil
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
+import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
 import org.jetbrains.anko.toast
+import java.util.*
 
 class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
 
+    //https://1090ys.com/
 
+    private val titles = arrayOf("首页", "电影","美剧","韩剧","日剧","国产剧","动漫")
+    private val fragments = ArrayList<BaseMvpFragment<*>>()
 
     override fun attachPresenterView() {
         mPresenter.attachView(this)
@@ -34,18 +51,65 @@ class MediaActivity : BaseMvpActivity<MediaPresenter>(),MediaView {
     }
 
     override fun initView() {
-        toast("media界面进来了")
-        tvMedia.setOnClickListener {
-            toast("media")
-            mPresenter.getData()
-        }
+//        setHasOptionsMenu(true)
+//        ToolbarHelper(this, toolbar, "", false)
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        fragments.add(MediaHomeFragment())
+        var mViewPagerAdapter = ViewPagerAdapter(supportFragmentManager)
+        contentViewPager.setAdapter(mViewPagerAdapter)
+        val commonNavigator = CommonNavigator(this)
+        commonNavigator.scrollPivotX = 0.25f
+        commonNavigator.adapter = object : CommonNavigatorAdapter() {
+            override fun getCount(): Int {
+                return titles?.size ?: 0
+            }
 
+            override fun getTitleView(context: Context, index: Int): IPagerTitleView {
+                val simplePagerTitleView = SimplePagerTitleView(context)
+                simplePagerTitleView.text = titles[index]
+                simplePagerTitleView.normalColor = resources.getColor(R.color.base_text_light)
+                simplePagerTitleView.selectedColor = resources.getColor(R.color.base_text_dark)
+                simplePagerTitleView.textSize = 16f
+                simplePagerTitleView.setOnClickListener { contentViewPager.setCurrentItem(index) }
+                return simplePagerTitleView
+            }
+
+            override fun getIndicator(context: Context): IPagerIndicator {
+                val indicator = LinePagerIndicator(context)
+                indicator.mode = LinePagerIndicator.MODE_EXACTLY
+                indicator.yOffset = UIUtil.dip2px(context, 3.0).toFloat()
+                indicator.setColors(resources.getColor(R.color.base_text_dark))
+                return indicator
+            }
+        }
+        tabSegment.setNavigator(commonNavigator)
+        ViewPagerHelper.bind(tabSegment, contentViewPager)
     }
 
     override fun createPresenter(): MediaPresenter {
         return MediaPresenter()
     }
 
+    inner class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
+        var fm: FragmentManager? = null
+
+        init {
+            this.fm = fm
+        }
+
+        override fun getItem(position: Int): Fragment {
+            return fragments.get(position)
+        }
+
+        override fun getCount(): Int {
+            return fragments.size
+        }
+    }
 
 }

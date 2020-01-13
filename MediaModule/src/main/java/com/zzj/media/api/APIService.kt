@@ -1,4 +1,4 @@
-package com.zzj.media.presenter.api
+package com.zzj.media.api
 
 import io.reactivex.Observable
 import retrofit2.http.GET
