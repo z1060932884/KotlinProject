@@ -46,7 +46,8 @@ dependencies {
     androidTestApi 'androidx.test.espresso:espresso-core:3.2.0'
 
     api "org.jetbrains.anko:anko-commons:$anko_version"
-
+    //    //阿里路由框架
+    api 'com.alibaba:arouter-api:1.4.1'
     //rx+retrofit+autodispose
     api 'io.reactivex.rxjava2:rxkotlin:2.4.0'
     api 'io.reactivex.rxjava2:rxandroid:2.1.1'
