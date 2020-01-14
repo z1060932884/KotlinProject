@@ -26,7 +26,7 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
             val doc:Document
             val connect:Connection = Jsoup.connect(BASE_URL)
             doc = connect.get()
-            LogUtils.e("------>${doc.html()}")
+//            LogUtils.e("------>${doc.html()}")
 
             val elements: Elements = doc.select("div.stui-pannel-bd a")
             val bannerList = arrayListOf<MovieBean>()
@@ -34,7 +34,7 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
                 val title = it.getElementsByAttribute("title").text()
                 val herf = it.attr("href")
                 val picture = it.attr("style")
-                LogUtils.e("------>${title}---->${herf}---->${subBracketContent(picture)}")
+//                LogUtils.e("------>${title}---->${herf}---->${subBracketContent(picture)}")
                 val movieBean  = MovieBean()
                 movieBean.title = title
                 movieBean.url = BASE_URL+herf
