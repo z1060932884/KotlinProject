@@ -26,7 +26,7 @@ class MediaActivity : BaseMvpActivity<BasePresenter<*>>(),BaseView {
     }
 
     override fun initView() {
-        loadRootFragment(R.id.fl_container,MediaFragment())
+        loadRootFragment(R.id.fl_container,MediaMainFragment())
     }
 
     override fun createPresenter(): BasePresenter<BaseView> {

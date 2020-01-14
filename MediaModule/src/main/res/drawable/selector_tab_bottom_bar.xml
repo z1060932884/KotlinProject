@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<!--//tabbar_text_select_color-->
+    <item android:color="@color/common_blue_start" android:state_checked="true"></item>
+    <item android:color="@color/base_text_light" android:state_checked="false"></item>
+</selector>
