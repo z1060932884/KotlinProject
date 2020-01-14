@@ -8,6 +8,16 @@ import com.zzj.media.presenter.view.MediaDetailsView
 
 class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(),MediaDetailsView{
 
+    var url = "";
+
+    fun newInstance(url:String ): MediaDetailsFragment {
+        val args = Bundle()
+        val fragment = MediaDetailsFragment()
+        args.putString("url",url)
+        fragment.setArguments(args)
+        return fragment
+    }
+
     override fun createPresenter(): MediaDetailsPresenter {
         return MediaDetailsPresenter()
     }
@@ -24,6 +34,8 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(),MediaDetai
     }
 
     override fun initData() {
+        url = arguments?.getString("url").toString()
+        mPresenter.getDetailsData(url)
     }
 
     override fun initView() {

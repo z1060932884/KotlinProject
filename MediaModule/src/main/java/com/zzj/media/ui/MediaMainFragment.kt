@@ -39,7 +39,7 @@ class MediaMainFragment : BaseFragment() {
         val firstFragment = findFragment(MediaHomeFragment::class.java)
         if (firstFragment == null) {
             mFragments[FIRST] = MediaFragment()
-            mFragments[SECOND] = MediaDetailsFragment()
+            mFragments[SECOND] = MediaFragment()
             loadMultipleRootFragment(
                 R.id.fl_container, FIRST,
                 mFragments[FIRST], mFragments[SECOND]
@@ -47,7 +47,7 @@ class MediaMainFragment : BaseFragment() {
 
         } else {
             mFragments[FIRST] = firstFragment
-            mFragments[SECOND] = findFragment(MediaDetailsFragment::class.java)
+            mFragments[SECOND] = findFragment(MediaFragment::class.java)
         }
     }
 

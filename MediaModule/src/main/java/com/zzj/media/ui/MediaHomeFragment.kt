@@ -31,7 +31,7 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
         bgaBanner.setAdapter(this)
         bgaBanner.setData(movieBeans, null)
         bgaBanner.setDelegate { banner, itemView, model, position ->
-            mActivity.start(MediaDetailsFragment(), ISupportFragment.SINGLETOP)
+            mActivity.start(MediaDetailsFragment().newInstance((model as MovieBean).url), ISupportFragment.SINGLETOP)
         }
 
     }
