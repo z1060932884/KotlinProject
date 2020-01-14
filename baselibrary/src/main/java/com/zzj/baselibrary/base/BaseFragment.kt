@@ -4,12 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import me.yokeyword.fragmentation.SupportFragment
 
-abstract class BaseFragment : SupportFragment(){
+abstract class BaseFragment : SupportFragment() {
 
-    lateinit var rootView:View
+    lateinit var rootView: View
 
 
     override fun onCreateView(
@@ -17,10 +16,8 @@ abstract class BaseFragment : SupportFragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if(getContainerLayout(savedInstanceState) != 0){
-            rootView = inflater.inflate(getContainerLayout(savedInstanceState),container,false)
-        }
-
+        val layoutId = getContainerLayout(savedInstanceState)
+        rootView = inflater.inflate(layoutId, container, false)
         initView()
         initData()
         initListener()

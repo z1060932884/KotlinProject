@@ -7,6 +7,7 @@ import com.zzj.media.presenter.MediaDetailsPresenter
 import com.zzj.media.presenter.view.MediaDetailsView
 
 class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(),MediaDetailsView{
+
     override fun createPresenter(): MediaDetailsPresenter {
         return MediaDetailsPresenter()
     }

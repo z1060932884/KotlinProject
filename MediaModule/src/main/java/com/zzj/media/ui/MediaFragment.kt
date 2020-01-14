@@ -54,9 +54,9 @@ class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
-        fragments.add(MediaHomeFragment())
+        fragments.add(MediaDetailsFragment())
         var mViewPagerAdapter = ViewPagerAdapter(fragmentManager!!)
-        rootView.contentViewPager.setAdapter(mViewPagerAdapter)
+        rootView!!.contentViewPager.setAdapter(mViewPagerAdapter)
         val commonNavigator = CommonNavigator(mActivity)
         commonNavigator.scrollPivotX = 0.25f
         commonNavigator.adapter = object : CommonNavigatorAdapter() {
@@ -70,7 +70,7 @@ class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
                 simplePagerTitleView.normalColor = resources.getColor(R.color.base_text_light)
                 simplePagerTitleView.selectedColor = resources.getColor(R.color.base_text_dark)
                 simplePagerTitleView.textSize = 16f
-                simplePagerTitleView.setOnClickListener { rootView.contentViewPager.setCurrentItem(index) }
+                simplePagerTitleView.setOnClickListener { rootView!!.contentViewPager.setCurrentItem(index) }
                 return simplePagerTitleView
             }
 
@@ -82,8 +82,8 @@ class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
                 return indicator
             }
         }
-        rootView.tabSegment.setNavigator(commonNavigator)
-        ViewPagerHelper.bind(rootView.tabSegment, rootView.contentViewPager)
+        rootView!!.tabSegment.setNavigator(commonNavigator)
+        ViewPagerHelper.bind(rootView!!.tabSegment, rootView!!.contentViewPager)
     }
 
     inner class ViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {

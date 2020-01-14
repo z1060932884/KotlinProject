@@ -34,6 +34,14 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
 
     abstract fun attachPresenterView()
 
+    protected abstract fun initListener()
+
+
+    protected abstract fun initData()
+
+
+    protected abstract fun initView()
+
     override fun onLoading(message: String) {
 
     }

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import cn.bingoogolapple.bgabanner.BGABanner
-import com.blankj.utilcode.util.LogUtils
 import com.bumptech.glide.Glide
 import com.zzj.baselibrary.base.BaseMvpFragment
 import com.zzj.media.R
@@ -12,9 +11,12 @@ import com.zzj.media.data.MovieBean
 import com.zzj.media.presenter.MediaHomePresenter
 import com.zzj.media.presenter.view.MediaHomeView
 import kotlinx.android.synthetic.main.fragment_media_home.*
+import me.yokeyword.fragmentation.ISupportFragment
 
 class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
     BGABanner.Adapter<View, MovieBean> {
+
+
     override fun fillBannerItem(
         banner: BGABanner?,
         itemView: View?,
@@ -26,11 +28,10 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
     }
 
     override fun getBannerDataSuccess(movieBeans: List<MovieBean>) {
-        LogUtils.e("getDataSuccess", movieBeans.get(0).title)
         bgaBanner.setAdapter(this)
         bgaBanner.setData(movieBeans, null)
         bgaBanner.setDelegate { banner, itemView, model, position ->
-            start(MediaDetailsFragment())
+            mActivity.start(MediaDetailsFragment(), ISupportFragment.SINGLETOP)
         }
 
     }
