@@ -31,6 +31,8 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+
 }
 
 dependencies {
@@ -126,10 +128,12 @@ dependencies {
     }
     //UI适配
     api 'me.jessyan:autosize:1.1.2'
+//    api 'net.sourceforge.htmlunit:htmlunit:2.36.0'
     //网页抓取
-    //    api 'org.jsoup:jsoup:1.12.1'
+//        api ('org.jsoup:jsoup:1.8.3')
     api files('libs/jsoup-1.12.1.jar')
 
     //x5内核
-    api files('libs/tbs_sdk_thirdapp_v4.3.0.1148_43697.jar')
+//    api files('libs/tbs_sdk_thirdapp_v4.3.0.1148_43697.jar')
+    api 'cn.yc:WebViewLib:1.2.2'
 }

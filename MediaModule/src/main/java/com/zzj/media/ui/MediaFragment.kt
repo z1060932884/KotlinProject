@@ -2,10 +2,12 @@ package com.zzj.media.ui
 
 import android.content.Context
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.zzj.baselibrary.base.BaseMvpFragment
+import com.zzj.baselibrary.utils.ToolbarHelper
 import com.zzj.media.R
 import com.zzj.media.presenter.MediaPresenter
 import com.zzj.media.presenter.view.MediaView
@@ -18,6 +20,8 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerInd
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.SimplePagerTitleView
+import org.jetbrains.anko.find
+import java.nio.file.Files.find
 import java.util.ArrayList
 
 class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
@@ -47,7 +51,8 @@ class MediaFragment :BaseMvpFragment<MediaPresenter>(), MediaView {
 
     override fun initView() {
         //        setHasOptionsMenu(true)
-//        ToolbarHelper(this, toolbar, "", false)
+        var toolbar = rootView.findViewById<Toolbar>(R.id.toolbar)
+        ToolbarHelper(mActivity,toolbar, "首页", false)
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())
         fragments.add(MediaHomeFragment())

@@ -9,6 +9,7 @@ import org.jetbrains.anko.error
 import java.lang.ref.WeakReference
 import java.lang.reflect.Proxy
 
+@Suppress("UNCHECKED_CAST")
 open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
 
 
@@ -45,7 +46,7 @@ open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
     }
 
     protected fun <T> bindLifecycle(): AutoDisposeConverter<T> {
-        return bindLifecycle(lifecycleOwner!!)
+        return bindLifecycle(lifecycleOwner)
     }
     /**
      * 解绑View

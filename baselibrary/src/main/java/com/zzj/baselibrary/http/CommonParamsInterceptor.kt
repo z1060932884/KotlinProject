@@ -13,7 +13,7 @@ class CommonParamsInterceptor : Interceptor {
     val TYPE_JSON: MediaType = "application/json; charset=utf-8".toMediaTypeOrNull()!!
 
     override fun intercept(chain: Interceptor.Chain): Response {
-        val request: Request = chain!!.request()
+        val request: Request = chain.request()
         val builder: Request.Builder = request.newBuilder();
         val token = ""
         val version = "1.0.0"

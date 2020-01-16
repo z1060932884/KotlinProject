@@ -5,7 +5,14 @@
     android:background="@color/grey_300"
     >
 
+    <com.ycbjie.webviewlib.X5WvWebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        />
     <TextView
+        android:id="@+id/tvLog"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="视频详情"

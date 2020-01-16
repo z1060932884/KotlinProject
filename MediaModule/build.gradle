@@ -30,13 +30,20 @@ android {
     kotlinOptions{
         jvmTarget = "1.8"
     }
+
+    //配置文件添加如下：
+    androidExtensions {
+        experimental = true
+    }
+
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-
-
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     api project(path: ':providelibrary')
     //组件中依赖阿里路由编译框架
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+//    implementation files('libs/htmlunit-2.36.0-OSGi.jar')
+//    implementation 'com.ljuns:logcollector:<latest-version>'
+
 }

@@ -11,7 +11,7 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         //初始化 缓存类
-        val rootDir = MMKV.initialize(this)
+        MMKV.initialize(this)
         Fragmentation.builder()
             // show stack view. Mode: BUBBLE, SHAKE, NONE
             .stackViewMode(Fragmentation.BUBBLE)
