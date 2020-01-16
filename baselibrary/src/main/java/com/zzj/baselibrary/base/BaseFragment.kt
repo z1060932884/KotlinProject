@@ -18,10 +18,15 @@ abstract class BaseFragment : SupportFragment() {
     ): View? {
         val layoutId = getContainerLayout(savedInstanceState)
         rootView = inflater.inflate(layoutId, container, false)
+
+        return rootView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
         initData()
         initListener()
-        return rootView
     }
 
     protected abstract fun initListener()
