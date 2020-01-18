@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull
 abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(),BaseView{
 
 
-     var TAG = ""
+     public var TAG = ""
      lateinit var mPresenter: P
 
     lateinit var mActivity: BaseActivity

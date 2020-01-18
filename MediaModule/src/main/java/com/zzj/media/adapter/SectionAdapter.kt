@@ -5,8 +5,8 @@ import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseSectionQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zzj.media.R
+import com.zzj.media.data.MovieBean
 import com.zzj.media.data.MySection
-import com.zzj.media.data.Video
 
 /**
  * https://github.com/CymChad/BaseRecyclerViewAdapterHelper
@@ -33,9 +33,9 @@ class SectionAdapter
 
 
     override fun convert(helper: BaseViewHolder, item: MySection) {
-        val video = item.t as Video
-        Glide.with(mContext).load(video.img)
+        val video = item.t as MovieBean
+        Glide.with(mContext).load(video.picture)
             .into(helper.getView(R.id.iv) as ImageView)
-        helper.setText(R.id.tv, video.name)
+        helper.setText(R.id.tv, video.title)
     }
 }

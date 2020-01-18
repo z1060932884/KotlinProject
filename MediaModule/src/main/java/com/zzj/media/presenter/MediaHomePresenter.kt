@@ -7,8 +7,8 @@ import com.zzj.baselibrary.base.BasePresenter
 import com.zzj.baselibrary.rx.transform
 import com.zzj.media.data.MovieBean
 import com.zzj.media.data.MySection
-import com.zzj.media.data.Video
 import com.zzj.media.presenter.view.MediaHomeView
+import com.zzj.media.utils.BASE_URL
 import com.zzj.media.utils.subBracketContent
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
@@ -18,11 +18,11 @@ import org.jsoup.Connection
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
-import java.util.ArrayList
+import java.util.*
 
 class MediaHomePresenter : BasePresenter<MediaHomeView>(){
 
-    public val BASE_URL = "https://1090ys.com/"
+
     val bannerList = arrayListOf<MovieBean>()
     val list = ArrayList<MySection>()
 
@@ -57,10 +57,10 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
             .subscribe(Consumer {
                 debug { "执行完成" }
                 if(it.equals("1")){
-                    LogUtils.e(TAG,"banner获取成功")
+//                    LogUtils.e(TAG,"banner获取成功")
                     getView().getBannerDataSuccess(bannerList)
                 }else{
-                    LogUtils.e(TAG,"list获取成功")
+//                    LogUtils.e(TAG,"list获取成功")
                     getView().getListData(list)
                 }
             }, Consumer {
@@ -89,11 +89,11 @@ class MediaHomePresenter : BasePresenter<MediaHomeView>(){
                     val herf = it.attr("href")
                     val picture = it.attr("data-original")
 //                    LogUtils.e(TAG, "-----$videoTitle----$herf-----$picture")
-                    list.add(MySection(Video(picture, videoTitle)))
+                    list.add(MySection(MovieBean( videoTitle,picture,BASE_URL+herf)))
                 }
 
             }
-            LogUtils.e(TAG, it.select("h3.title").text())
+//            LogUtils.e(TAG, it.select("h3.title").text())
         }
         it.onNext("2")
     }
