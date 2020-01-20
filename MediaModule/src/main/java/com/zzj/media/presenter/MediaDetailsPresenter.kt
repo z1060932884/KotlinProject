@@ -14,12 +14,12 @@ import com.zzj.media.utils.BASE_URL
 import com.zzj.media.utils.subVideoContent
 import io.reactivex.Observable
 import io.reactivex.ObservableEmitter
-import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.functions.Consumer
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
-import java.util.concurrent.TimeUnit
+import java.util.*
+import kotlin.concurrent.timerTask
 
 class MediaDetailsPresenter : BasePresenter<MediaDetailsView>(){
 
@@ -29,11 +29,21 @@ class MediaDetailsPresenter : BasePresenter<MediaDetailsView>(){
     //视频播放网页
     private var videoUrl = "";
     private var detailsBean:MovieDetailsBean? = null
+
+    private var timer : Timer? = null
+    var timerTask:TimerTask = timerTask  {
+        getVideoUrl()
+    }
     fun init(){
         logCollector= LogCollector.getInstance(Utils.getApp())
             .setCleanCache(true)
             .setStringWithType("videopreload", null)
+
+        timer = Timer()
+
     }
+
+
 
     fun getDetailsData(url:String){
         Observable.create<Int> {
@@ -122,7 +132,8 @@ class MediaDetailsPresenter : BasePresenter<MediaDetailsView>(){
         //停止日志获取
         logCollector?.onStop()
         logCollector?.start()
-        Observable.interval(1000,1000, TimeUnit.MILLISECONDS)
+        timer?.schedule(timerTask,0,1000)
+        /*Observable.interval(1000,1000, TimeUnit.MILLISECONDS)
             .transform(lifecycleOwner)
             .subscribe(object : Observer<Long> {
                 override fun onComplete() {
@@ -133,13 +144,13 @@ class MediaDetailsPresenter : BasePresenter<MediaDetailsView>(){
                 }
 
                 override fun onNext(t: Long) {
-                    getVideoUrl()
+
                 }
 
                 override fun onError(e: Throwable) {
                 }
 
-            })
+            })*/
     }
 
 

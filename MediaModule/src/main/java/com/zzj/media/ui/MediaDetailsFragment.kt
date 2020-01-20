@@ -27,6 +27,7 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDeta
 
     var playUrlAdapter:MediaDetailsPlayUrlAdapter? = null
 
+    var webView:X5WebView? = null
 
     override fun parseDetailsSuccess(movieDetailBean: MovieDetailsBean) {
         Glide.with(mActivity).load(movieDetailBean!!.moviePicture)
@@ -43,7 +44,8 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDeta
         LogUtils.e(TAG, url)
         //开始加载网页  解析播放地址
         mPresenter.timerVideoUrl()
-        webView.loadUrl(url)
+
+        webView?.loadUrl(url)
     }
 
     /**
@@ -76,7 +78,8 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDeta
         playUrlAdapter?.setOnItemClickListener { adapter, view, position ->
             //开始加载网页  解析播放地址
             mPresenter.timerVideoUrl()
-            webView.loadUrl( (adapter.data[position]as MovieBean).url )
+            webView = X5WebView(mActivity)
+            webView?.loadUrl( (adapter.data[position]as MovieBean).url )
         }
     }
 
@@ -93,9 +96,7 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDeta
     override fun initView() {
         //初始化log
         mPresenter.init()
-        val webViewClient = MyX5WebViewClient(webView, mActivity)
-        webView.webViewClient = webViewClient
-
+        webView = X5WebView(mActivity)
         //初始化recyclerView
         recyclerView.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
         playUrlAdapter = MediaDetailsPlayUrlAdapter(R.layout.meida_item_details_play_url)
