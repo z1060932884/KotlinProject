@@ -39,7 +39,7 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(),BaseView{
     abstract fun attachPresenterView()
 
     override fun onLoading(message: String) {
-
+        loading(message)
     }
 
     override fun onError(code: Int, message: String) {
@@ -47,6 +47,6 @@ abstract class BaseMvpFragment<P : BasePresenter<*>> : BaseFragment(),BaseView{
     }
 
     override fun onDismiss() {
-
+        dismiss()
     }
 }

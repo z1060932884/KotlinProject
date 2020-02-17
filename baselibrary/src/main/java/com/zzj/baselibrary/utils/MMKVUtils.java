@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.tencent.mmkv.MMKV;
 
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 /**
  * 缓存类
  */
@@ -162,7 +165,6 @@ public class MMKVUtils {
         mmkv.encode(key,value);
     }
 
-
     /**
      * Return the boolean value in sp.
      *
@@ -182,6 +184,38 @@ public class MMKVUtils {
      */
     public boolean getBoolean(@NonNull final String key, final boolean defaultValue) {
         return mmkv.decodeBool(key, defaultValue);
+    }
+
+    /**
+     * Put the Set<String> value in sp.
+     *
+     * @param key   The key of sp.
+     * @param value The value of sp.
+     */
+    public void put(@NonNull final String key, Set<String> value) {
+        mmkv.encode(key,value);
+    }
+
+
+    /**
+     * Return the boolean value in sp.
+     *
+     * @param key The key of sp.
+     * @return the boolean value if sp exists or {@code false} otherwise
+     */
+    public Set<String> getStringSet(@NonNull final String key) {
+        return getStringSet(key, new LinkedHashSet<>());
+    }
+
+    /**
+     * Return the boolean value in sp.
+     *
+     * @param key          The key of sp.
+     * @param defaultValue The default value if the sp doesn't exist.
+     * @return the boolean value if sp exists or {@code defaultValue} otherwise
+     */
+    public Set<String> getStringSet(@NonNull final String key, final Set<String> defaultValue) {
+        return mmkv.decodeStringSet(key, defaultValue);
     }
 
     /**

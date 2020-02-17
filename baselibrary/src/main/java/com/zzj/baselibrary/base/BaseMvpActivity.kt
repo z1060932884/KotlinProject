@@ -14,9 +14,7 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
         mPresenter = createPresenter()
         initLifecycleObserver(this.lifecycle)
         attachPresenterView()
-        initView()
-        initData()
-        initListener()
+
 
     }
 
@@ -34,16 +32,10 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
 
     abstract fun attachPresenterView()
 
-    protected abstract fun initListener()
 
-
-    protected abstract fun initData()
-
-
-    protected abstract fun initView()
 
     override fun onLoading(message: String) {
-
+        loading(message)
     }
 
     override fun onError(code: Int, message: String) {
@@ -51,7 +43,7 @@ abstract class BaseMvpActivity<P : BasePresenter<*>> : BaseActivity(),BaseView{
     }
 
     override fun onDismiss() {
-
+        dismiss()
     }
 
 }

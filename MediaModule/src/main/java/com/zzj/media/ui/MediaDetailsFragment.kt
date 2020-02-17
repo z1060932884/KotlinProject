@@ -1,21 +1,20 @@
 package com.zzj.media.ui
 
-import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.LogUtils
 import com.bumptech.glide.Glide
-import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.TbsVideo
 import com.tencent.smtt.sdk.WebView
-import com.ycbjie.webviewlib.X5WebView
-import com.ycbjie.webviewlib.X5WebViewClient
+import com.tencent.smtt.sdk.WebViewClient
 import com.zzj.baselibrary.base.BaseMvpFragment
 import com.zzj.media.R
 import com.zzj.media.adapter.MediaDetailsPlayUrlAdapter
-import com.zzj.media.data.MovieBean
 import com.zzj.media.data.MovieDetailsBean
+import com.zzj.media.data.MovieUrlBean
 import com.zzj.media.presenter.MediaDetailsPresenter
 import com.zzj.media.presenter.view.MediaDetailsView
 import kotlinx.android.synthetic.main.media_fragemnt_details.*
@@ -23,45 +22,34 @@ import kotlinx.android.synthetic.main.media_fragemnt_details.*
 
 class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDetailsView {
 
-    var url = ""
+    var title:String? = null
+    var playUrl = ""
 
-    var playUrlAdapter:MediaDetailsPlayUrlAdapter? = null
+    var id: Long = 0
 
-    var webView:X5WebView? = null
+    var playUrlAdapter: MediaDetailsPlayUrlAdapter? = null
 
-    override fun parseDetailsSuccess(movieDetailBean: MovieDetailsBean) {
-        Glide.with(mActivity).load(movieDetailBean!!.moviePicture)
-            .into(ivImage as ImageView)
-        tvTitle.setText(movieDetailBean.movieTitle)
-        tvDirect.setText(movieDetailBean.movieDirector)
-        playUrlAdapter?.setNewData(movieDetailBean.playerUrls)
+    var detailBean: MovieDetailsBean? = null
+
+    var isExpand: Boolean = false
+
+    override fun parseDetailsSuccess(movieDetailBean: MovieDetailsBean?) {
+        loadDetailData(movieDetailBean)
     }
 
 
-
-
-    override fun parseVideoUrlSuccess(url: String) {
-        LogUtils.e(TAG, url)
-        //开始加载网页  解析播放地址
-        mPresenter.timerVideoUrl()
-
-        webView?.loadUrl(url)
-    }
-
-    /**
-     * 获取播放地址成功
-     */
-    override fun getPlayUrlSuccess(url: String) {
-        LogUtils.e(TAG, url)
-//        webView.loadUrl(url)
-        playVideo(url)
-    }
-
-
-    fun newInstance(url: String): MediaDetailsFragment {
+    fun newInstance(id: Long): MediaDetailsFragment {
         val args = Bundle()
         val fragment = MediaDetailsFragment()
-        args.putString("url", url)
+        args.putLong("id", id)
+        fragment.setArguments(args)
+        return fragment
+    }
+
+    fun newInstance(id: MovieDetailsBean): MediaDetailsFragment {
+        val args = Bundle()
+        val fragment = MediaDetailsFragment()
+        args.putSerializable("data", id)
         fragment.setArguments(args)
         return fragment
     }
@@ -76,51 +64,115 @@ class MediaDetailsFragment : BaseMvpFragment<MediaDetailsPresenter>(), MediaDeta
 
     override fun initListener() {
         playUrlAdapter?.setOnItemClickListener { adapter, view, position ->
-            //开始加载网页  解析播放地址
-            mPresenter.timerVideoUrl()
-            webView = X5WebView(mActivity)
-            webView?.loadUrl( (adapter.data[position]as MovieBean).url )
+            for (urlBean in adapter.data){
+                (urlBean as MovieUrlBean).isSelect = false
+            }
+            val movieUrlBean: MovieUrlBean = adapter.data.get(position) as MovieUrlBean
+            playUrl = movieUrlBean.url
+            webView.loadUrl(movieUrlBean.url)
+//            webView.load(playHtml())
+            movieUrlBean.isSelect = true
+            adapter.notifyDataSetChanged()
+            //请求观看次数
+            mPresenter.watch(title!!)
+//            playVideo(movieUrlBean.url)
+        }
+        tvMore.setOnClickListener {
+            if(isExpand){
+                tvContent.visibility = View.GONE
+            }else{
+                tvContent.visibility = View.VISIBLE
+            }
+            isExpand = !isExpand
         }
     }
+
 
     override fun getContainerLayout(savedInstanceState: Bundle?): Int {
         return R.layout.media_fragemnt_details
     }
 
     override fun initData() {
-        url = arguments?.getString("url").toString()
-        mPresenter.getDetailsData(url)
+        id = arguments?.getLong("id")!!
+        detailBean = arguments?.getSerializable("data") as MovieDetailsBean?
+        if (detailBean != null) {
+            loadDetailData(detailBean)
+        }
+        if (id != 0L) {
+            mPresenter.getDetailsData(id)
+        }
 
     }
 
     override fun initView() {
-        //初始化log
-        mPresenter.init()
-        webView = X5WebView(mActivity)
         //初始化recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(mActivity,LinearLayoutManager.HORIZONTAL,false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(mActivity, LinearLayoutManager.HORIZONTAL, false)
         playUrlAdapter = MediaDetailsPlayUrlAdapter(R.layout.meida_item_details_play_url)
         recyclerView.adapter = playUrlAdapter
-//        playVideo("http://tj-ctfs.ftn.qq.com/%E7%88%B1%E6%83%85%E5%85%AC%E5%AF%935_1920x1080_%E7%88%B1%E6%83%85%E5%85%AC%E5%AF%935%E7%AC%AC1%E9%9B%86.mp4?ver=5199&rkey=6f7d35e75875a47ff62ff7af1b14892eabebfab595780e906f3eee244e805e93bb3538aa212d72c7e0c66dc2259b4a9b08d43e2fccba5f629a41861539618354")
+
+        val data = Bundle()
+
+        data.putBoolean("standardFullScreen", false)
+//true表示标准全屏，false表示X5全屏；不设置默认false，
+
+        data.putBoolean("supportLiteWnd", true)
+//false：关闭小窗；true：开启小窗；不设置默认true，
+
+        data.putInt("DefaultVideoScreen", 1)
+//1：以页面内开始播放，2：以全屏开始播放；不设置默认：1
+
+        webView.getX5WebViewExtension().invokeMiscMethod("setVideoParams", data)
+        webView.webViewClient = WebClient()
     }
 
-    private inner class MyX5WebViewClient(webView: X5WebView, context: Context) :
-        X5WebViewClient(webView, context) {
 
-        override fun shouldOverrideUrlLoading(view: WebView, url: String?): Boolean {
-            view.loadUrl(url)
-            return  true
+    /**
+     * 加载详情数据到界面
+     */
+    private fun loadDetailData(movieDetailBean: MovieDetailsBean?) {
+        llRoot.visibility = View.VISIBLE
+        Glide.with(mActivity).load(movieDetailBean!!.picture)
+            .into(ivImage as ImageView)
+        title = movieDetailBean.title
+        tvTitle.setText(movieDetailBean.title)
+        tvStatus.setText(movieDetailBean.type + " · ${movieDetailBean.status}/${movieDetailBean.remark}")
+        tvContent.setText(
+            "导演 : ${movieDetailBean.director}\n演员 : ${movieDetailBean.actor} " +
+                    "\n地区 : ${movieDetailBean.area}\n更新时间 : ${movieDetailBean.updateTime}" +
+                    "\n上映时间 : ${movieDetailBean.showTime}\n简介 : ${movieDetailBean.synopsis}"
+        )
+        val playUrlList: List<String> =
+            GsonUtils.fromJson<List<String>>(movieDetailBean.playUrlList2, List::class.java)
+        var urlBeans = arrayListOf<MovieUrlBean>()
+        for (element in playUrlList) {
+            if (element.contains("$")) {
+                var item = element.split("$")
+                var urlBean = MovieUrlBean()
+                urlBean.title = item[0]
+                urlBean.url = item[1]
+                urlBeans.add(urlBean)
+            }
         }
+        playUrl = urlBeans[0].url
+        urlBeans[0].isSelect = true
+        webView.loadUrl(playUrl)
+        playUrlAdapter?.setNewData(urlBeans)
 
-        override fun shouldOverrideUrlLoading(
-            view: WebView,
-            request: WebResourceRequest
-        ): Boolean {
-            view.loadUrl(request.url.toString())
-            return true
+        //请求观看次数
+        mPresenter.watch(title!!)
+    }
+
+    /**
+     * webView的client
+     */
+    inner class WebClient : WebViewClient(){
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            ivVideoBg.visibility = View.GONE
+
         }
-
-
     }
 
     private fun playVideo(url: String) {

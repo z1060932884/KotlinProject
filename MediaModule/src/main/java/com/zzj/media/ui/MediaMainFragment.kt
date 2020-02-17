@@ -20,10 +20,10 @@ class MediaMainFragment : BaseFragment() {
          */
         rootView.bottomBar.setOnNavigationItemSelectedListener(BottomNavigationView.OnNavigationItemSelectedListener { item ->
             if (item.itemId == R.id.media_home) {
-                showHideFragment(mFragments[FIRST])
+                showHideFragment(mFragments[FIRST],mFragments[SECOND])
                 return@OnNavigationItemSelectedListener true
             } else if (item.itemId == R.id.media_mine) {
-                showHideFragment(mFragments[SECOND])
+                showHideFragment(mFragments[SECOND],mFragments[FIRST])
                 return@OnNavigationItemSelectedListener true
             }
             false
@@ -39,15 +39,14 @@ class MediaMainFragment : BaseFragment() {
         val firstFragment = findFragment(MediaHomeFragment::class.java)
         if (firstFragment == null) {
             mFragments[FIRST] = MediaFragment()
-            mFragments[SECOND] = MediaFragment()
+            mFragments[SECOND] = MediaMineFragment()
             loadMultipleRootFragment(
                 R.id.fl_container, FIRST,
                 mFragments[FIRST], mFragments[SECOND]
             )
-
         } else {
             mFragments[FIRST] = firstFragment
-            mFragments[SECOND] = findFragment(MediaFragment::class.java)
+            mFragments[SECOND] = findFragment(MediaMineFragment::class.java)
         }
     }
 

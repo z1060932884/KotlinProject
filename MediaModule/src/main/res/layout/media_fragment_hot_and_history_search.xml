@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rlHistorySearch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/len_16"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="历史搜索"
+            android:textColor="@color/base_text_dark"
+            android:textSize="@dimen/font_18"
+            />
+        <ImageView
+            android:id="@+id/ivWaste"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="@dimen/len_4"
+            android:src="@drawable/media_ic_waste"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+
+    <com.qmuiteam.qmui.widget.QMUIFloatLayout
+        android:id="@+id/floatLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        app:qmui_maxNumber="9"
+        android:layout_marginLeft="@dimen/len_16"
+        android:layout_marginRight="@dimen/len_16"
+        app:qmui_childHorizontalSpacing="16dp"
+        app:qmui_childVerticalSpacing="16dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="热门搜索"
+        android:textColor="@color/orange_700"
+        android:textSize="@dimen/font_18"
+        android:layout_marginLeft="@dimen/len_16"
+        android:layout_marginTop="@dimen/len_16"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>

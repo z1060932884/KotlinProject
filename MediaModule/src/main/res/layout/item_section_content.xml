@@ -11,7 +11,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="2dp"
+    card_view:cardElevation="0dp"
     card_view:cardUseCompatPadding="true">
 <LinearLayout
     android:orientation="vertical"
@@ -22,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:src="@mipmap/ic_launcher"
         android:scaleType="centerCrop"
         android:layout_marginBottom="10dp"/>
 
@@ -33,6 +32,8 @@
         android:layout_gravity="center|bottom"
         android:textColor="@color/base_text_dark"
         android:textStyle="bold"
+        android:ellipsize="end"
+        android:singleLine="true"
         android:text="C"/>
 </LinearLayout>
 </androidx.cardview.widget.CardView>

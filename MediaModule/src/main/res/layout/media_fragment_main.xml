@@ -11,14 +11,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey_300"/>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/grey_300"
         app:itemTextColor="@drawable/selector_tab_bottom_bar"
         app:itemIconTint="@drawable/selector_tab_bottom_bar"
         app:menu="@menu/menu_navigation"
+        android:background="@color/white"
         >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>

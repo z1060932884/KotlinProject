@@ -1,3 +1,4 @@
+apply from: "../module.build.gradle"
 if(isUserModule.toBoolean()){
     apply plugin: 'com.android.library'
 }else {
@@ -60,4 +61,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     api project(':providelibrary')
+    api(name: 'bugly_crashreport_upgrade-1.4.2', ext: 'aar')
+
 }

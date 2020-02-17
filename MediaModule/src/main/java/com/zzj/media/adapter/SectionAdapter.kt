@@ -2,6 +2,7 @@ package com.zzj.media.adapter
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.chad.library.adapter.base.BaseSectionQuickAdapter
 import com.chad.library.adapter.base.BaseViewHolder
 import com.zzj.media.R
@@ -34,7 +35,7 @@ class SectionAdapter
 
     override fun convert(helper: BaseViewHolder, item: MySection) {
         val video = item.t as MovieBean
-        Glide.with(mContext).load(video.picture)
+        Glide.with(mContext).load(video.picture).apply(RequestOptions().placeholder(R.color.grey_200))
             .into(helper.getView(R.id.iv) as ImageView)
         helper.setText(R.id.tv, video.title)
     }

@@ -43,6 +43,10 @@ dependencies {
     api project(path: ':providelibrary')
     //组件中依赖阿里路由编译框架
     annotationProcessor rootProject.ext.dependencies["arouter-compiler"]
+
+    implementation project(':thunder')
+    api(name: 'bugly_crashreport_upgrade-1.4.2', ext: 'aar')
+
 //    implementation files('libs/htmlunit-2.36.0-OSGi.jar')
 //    implementation 'com.ljuns:logcollector:<latest-version>'
 

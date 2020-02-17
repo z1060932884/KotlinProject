@@ -9,9 +9,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
 class RetrofitClient{
-    val CONNECT_TIME_OUT = 200
-    val READ_TIME_OUT = 200
-    val WRITE_TIME_OUT = 200
+    val CONNECT_TIME_OUT = 100
+    val READ_TIME_OUT = 100
+    val WRITE_TIME_OUT = 100
     val ws_url = "ws://192.168.3.6:8088/ws"
     var baseUrl = "http://192.168.3.6:8080/smile/"
     //    public static String baseUrl = "http://192.168.0.27:8080/smile/";

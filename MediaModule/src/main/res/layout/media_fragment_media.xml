@@ -1,17 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:qmui="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <include layout="@layout/include_toolbar"/>
 
-    <net.lucode.hackware.magicindicator.MagicIndicator
+    <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabSegment"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-
+        app:tabSelectedTextColor="@color/base_blue"
+        app:tabTextColor="@color/grey_100"
+        app:tabIndicator="@color/trans"
+        app:tabTextAppearance="@style/Media_Tab_Text"
+        app:tabMode="scrollable"
+        android:background="@drawable/shape_toolbar_bg"
         >
 
-    </net.lucode.hackware.magicindicator.MagicIndicator>
+    </com.google.android.material.tabs.TabLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_toolbar_bg"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/rlSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="@dimen/len_16"
+            android:layout_marginRight="@dimen/len_16"
+            android:layout_marginTop="@dimen/len_10"
+            android:layout_marginBottom="@dimen/len_10"
+            >
+            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="搜索"
+                app:qmui_radius="@dimen/len_24"
+                app:qmui_backgroundColor="@color/black_alpha_48"
+                android:paddingTop="@dimen/len_6"
+                android:paddingBottom="@dimen/len_6"
+                android:paddingLeft="@dimen/len_12"
+                android:textSize="@dimen/len_12"
+                android:textColor="@color/grey_100"
+
+                />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/media_ic_search"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/len_10"/>
+
+        </RelativeLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/media_ic_watch_history"/>
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="@dimen/len_10"
+            android:layout_marginRight="@dimen/len_16"
+            android:src="@drawable/mdeia_ic_sign"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/grey_300"/>
+
+
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/contentViewPager"
         android:layout_width="match_parent"

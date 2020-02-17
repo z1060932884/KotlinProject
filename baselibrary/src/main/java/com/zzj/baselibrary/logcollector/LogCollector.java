@@ -3,9 +3,7 @@ package com.zzj.baselibrary.logcollector;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import com.blankj.utilcode.util.ThreadUtils;
 import com.zzj.baselibrary.logcollector.util.CloseUtils;
 import com.zzj.baselibrary.logcollector.util.FileUtils;
 import com.zzj.baselibrary.logcollector.util.LevelUtils;
@@ -23,6 +21,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 
 /**
@@ -59,7 +58,7 @@ public class LogCollector implements CrashHandlerListener {
      * 是否清除缓存日志文件
      */
     private boolean mCleanCache = false;
-//    private LogRunnable mLogRunnable;
+    private LogRunnable mLogRunnable;
 
     private LogCollector(Application context) {
         this.mContext = context;
@@ -205,14 +204,13 @@ public class LogCollector implements CrashHandlerListener {
         mCacheFile = FileUtils.createLogCacheFile(mContext, mCacheFile, mCleanCache);
         CrashHandler.getInstance().init(mContext, mCleanCache).crash(this);
 
-//        mLogRunnable = new LogRunnable();
-        ThreadUtils.executeBySingle(simpleTask);
-//        Executors.newSingleThreadExecutor().execute(mLogRunnable);
+        mLogRunnable = new LogRunnable();
+        Executors.newSingleThreadExecutor().execute(mLogRunnable);
     }
 
     @Override
     public void crashHandler() {
-        isCrash = true;
+        mLogRunnable.isCrash = true;
     }
 
     /**
@@ -299,11 +297,12 @@ public class LogCollector implements CrashHandlerListener {
             }
         }
     }
-    public volatile boolean isCrash = false;
-     ThreadUtils.SimpleTask simpleTask = new ThreadUtils.SimpleTask() {
-        @Nullable
+
+    private class LogRunnable implements Runnable {
+        volatile boolean isCrash = false;
+
         @Override
-        public Object doInBackground() throws Throwable {
+        public void run() {
             List<String> getCommandLine = new ArrayList<>();
             createGetCommand(getCommandLine);
 
@@ -323,9 +322,7 @@ public class LogCollector implements CrashHandlerListener {
                 String str;
                 while (!isCrash && ((str = reader.readLine()) != null)) {
                     createCleanCommand();
-                    if (filterStringType(str)) {
-                        continue;
-                    }
+                    if (filterStringType(str)) { continue; }
 
                     // 写数据
                     writer.write(str);
@@ -338,21 +335,10 @@ public class LogCollector implements CrashHandlerListener {
                 CloseUtils.close(reader);
                 CloseUtils.close(writer);
             }
-            return null;
         }
-
-        @Override
-        public void onSuccess(@Nullable Object result) {
-
-        }
-    };
+    }
 
     public File getCacheFile() {
         return mCacheFile;
-    }
-
-
-    public void onStop(){
-        ThreadUtils.cancel(simpleTask);
     }
 }

@@ -1,5 +1,6 @@
 package com.zzj.baselibrary.http
 
+import com.zzj.baselibrary.utils.MMKVUtils
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -15,7 +16,7 @@ class CommonParamsInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request: Request = chain.request()
         val builder: Request.Builder = request.newBuilder();
-        val token = ""
+        val token = MMKVUtils.getInstance().getString("token")
         val version = "1.0.0"
         builder.addHeader("device-typ", "3")
         builder.addHeader("channel-id", "")

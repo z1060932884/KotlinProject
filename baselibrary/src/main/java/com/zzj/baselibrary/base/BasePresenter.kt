@@ -6,8 +6,6 @@ import com.uber.autodispose.AutoDisposeConverter
 import com.zzj.baselibrary.rx.bindLifecycle
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
-import java.lang.ref.WeakReference
-import java.lang.reflect.Proxy
 
 @Suppress("UNCHECKED_CAST")
 open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
@@ -17,9 +15,8 @@ open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
 
 
 
-    private var mViewReference: WeakReference<V>? = null
 
-    lateinit var mProxyView: V
+    var mView: V? = null
 
 
 
@@ -31,17 +28,7 @@ open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
      */
     fun attachView(view: V) {
         TAG = this.javaClass.simpleName
-        this.mViewReference = WeakReference(view)
-        //使用代理对象
-        mProxyView = Proxy.newProxyInstance(
-            view.javaClass.classLoader, view.javaClass.interfaces
-        ) { _, method, args ->
-            //执行这个方法，调用的是委托对象，判断View是否为空
-            if (mViewReference == null || mViewReference!!.get() == null) {
-                null
-            } else method.invoke(mViewReference!!.get(), *args)
-            //没解绑执行的是原始被代理 View的方法
-        } as V
+        mView = view
 
     }
 
@@ -52,15 +39,12 @@ open class BasePresenter<V :BaseView> :IPresenter,AnkoLogger{
      * 解绑View
      */
     fun detachView() {
-        if (mViewReference != null) {
-            mViewReference!!.clear()
-            mViewReference = null
-        }
+
 
     }
 
-    fun getView(): V {
-        return mProxyView
+    fun getView(): V? {
+        return mView
     }
 
 

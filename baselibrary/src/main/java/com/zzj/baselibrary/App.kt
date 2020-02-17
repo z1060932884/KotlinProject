@@ -2,6 +2,7 @@ package com.zzj.baselibrary
 
 import android.app.Application
 import com.blankj.utilcode.util.LogUtils
+import com.tencent.bugly.crashreport.CrashReport
 import com.tencent.mmkv.MMKV
 import com.tencent.smtt.sdk.QbSdk
 import me.yokeyword.fragmentation.Fragmentation
@@ -18,6 +19,7 @@ class App : Application() {
             .debug(BuildConfig.DEBUG)
         .install()
 
+        CrashReport.initCrashReport(getApplicationContext(), "3154fce9be", false)
         //搜集本地tbs内核信息并上报服务器，服务器返回结果决定使用哪个内核。
 
         val cb = object : QbSdk.PreInitCallback {

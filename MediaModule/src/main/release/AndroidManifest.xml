@@ -2,7 +2,9 @@
     package="com.zzj.media" >
     <application
        >
-        <activity android:name=".ui.MediaActivity">
+        <activity android:name=".ui.MediaActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            >
 
         </activity>
     </application>

@@ -23,6 +23,7 @@ class MediaActivity : BaseMvpActivity<BasePresenter<*>>(),BaseView {
 
 
     override fun initData() {
+//        CrashReport.testJavaCrash();
     }
 
     override fun initView() {

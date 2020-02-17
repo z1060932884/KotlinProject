@@ -24,6 +24,6 @@ class MediaPresenter : BasePresenter<MediaView>() {
             }, Consumer {
                info { it.message }
             })
-        getView().getDataSuccess("hahasdkjaksljd")
+        getView()?.getDataSuccess("hahasdkjaksljd")
     }
 }

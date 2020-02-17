@@ -10,7 +10,7 @@
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="4dp"
-    card_view:cardElevation="2dp"
+    card_view:cardElevation="0dp"
     card_view:cardUseCompatPadding="true">
 
 
@@ -39,7 +39,7 @@
             android:paddingRight="10dp"
             android:gravity="right|center"
             android:textColor="@color/base_blue"
-            android:text="more >"
+            android:text="  >  "
             android:textSize="18sp"/>
     </LinearLayout>
 

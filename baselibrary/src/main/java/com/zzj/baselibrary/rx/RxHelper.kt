@@ -32,7 +32,6 @@ fun <T> io_main(): ObservableTransformer<T, T> {
 * */
 fun <T> Observable<T>.transform(owner: LifecycleOwner): ObservableSubscribeProxy<T> {
     return this.compose(io_main())
-
         .autoDispose(from(owner, Lifecycle.Event.ON_DESTROY))
 }
 
@@ -43,6 +42,8 @@ fun <T> bindLifecycle(lifecycleOwner: LifecycleOwner): AutoDisposeConverter<T> {
     )
 }
 
+
+
 fun <T> exceptionTransformer(): ObservableTransformer<T,T> {
 
     return ObservableTransformer { upstream ->
@@ -52,21 +53,32 @@ fun <T> exceptionTransformer(): ObservableTransformer<T,T> {
 }
 
 /*
-private class HttpResponseFunc<T> : Function<Throwable, Observable<T>> {
-    override fun apply(t: Throwable): Observable<T> {
-        return Observable.error(ExceptionHandle.handleException(t))
+* 数据转换
+*
+* */
+fun <T> Observable<HttpResult<T>>.dataConvert(): Observable<T> {
+    return flatMap {
+        if (it.isSuccess) Observable.just(it.result) else Observable.error(Throwable(message = it.message))
     }
 }
 
-class HandleFuc<T> : Function<HttpResult<T>, T> {
-    override fun apply(response: HttpResult<T>){
+
+/*private class HttpResponseFunc<T> : Function<Throwable, Observable<T>> {
+    override fun apply(t: Throwable): Observable<T> {
+        return Observable.error(ExceptionHandle.handleException(t))
+    }
+}*/
+
+/*class HandleFuc<T> : Function<HttpResult<T>, T> {
+    override fun apply(response: HttpResult<T>): T {
 
         if (response.code !== 200)
             throw RuntimeException(response.message)
 
-        return response
+        return response?
     }
 }*/
+
 class ResultFunction<T> : Function<HttpResult<T>, T> {
     override fun apply(httpResult: HttpResult<T>): T {
         if (!httpResult.isSuccess) {

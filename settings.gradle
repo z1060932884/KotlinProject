@@ -1,2 +1,2 @@
-include ':app', ':baselibrary', ':providelibrary', ':UserCenterModule', ':MediaModule'
+include ':app', ':baselibrary', ':providelibrary', ':UserCenterModule', ':MediaModule','thunder'
 rootProject.name='KotlinProject'

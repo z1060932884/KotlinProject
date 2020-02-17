@@ -8,6 +8,7 @@
         android:id="@+id/bgaBanner"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:visibility="gone"
         app:banner_indicatorGravity="bottom|right"
         app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
         app:banner_isNumberIndicator="true"

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:contentPaddingBottom="@dimen/len_16"
+    app:contentPaddingTop="@dimen/len_16"
+    app:contentPaddingLeft="@dimen/len_24"
+    app:contentPaddingRight="@dimen/len_24"
+    app:cardBackgroundColor="@color/white_alpha_32"
+    app:cardCornerRadius="@dimen/len_10"
+    app:cardElevation="0dp"
+    >
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorName="BallPulseIndicator"
+        app:indicatorColor="@color/base_blue"
+        />
+</androidx.cardview.widget.CardView>

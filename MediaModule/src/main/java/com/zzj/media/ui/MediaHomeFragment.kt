@@ -22,8 +22,10 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
     var bgaBanner:BGABanner? = null
     var mData = arrayListOf<MySection>()
     var sectionAdapter: SectionAdapter? = null
-    override fun getListData(list: List<MySection>) {
+    //判断是否已经加载
+    var isFirstInit:Boolean = false
 
+    override fun getListData(list: List<MySection>) {
         sectionAdapter?.setNewData(list)
     }
 
@@ -42,7 +44,7 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
         bgaBanner?.setAdapter(this)
         bgaBanner?.setData(movieBeans, null)
         bgaBanner?.setDelegate { banner, itemView, model, position ->
-            mActivity.start(MediaDetailsFragment().newInstance((model as MovieBean).url), ISupportFragment.SINGLETOP)
+//            mActivity.start(MediaDetailsFragment().newInstance((model as MovieBean).url), ISupportFragment.SINGLETOP)
         }
 
     }
@@ -58,6 +60,20 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
     }
 
     override fun initListener() {
+
+        sectionAdapter?.setOnItemClickListener { adapter, view, position ->
+            mActivity.start(MediaDetailsFragment().newInstance((adapter.data[position] as MySection).t.id), ISupportFragment.SINGLETOP)
+
+        }
+
+        refreshLayout.setOnRefreshListener {
+            mPresenter.getData()
+        }
+    }
+
+    override fun onDismiss() {
+        super.onDismiss()
+        refreshLayout.finishRefresh()
     }
 
     override fun getContainerLayout(savedInstanceState: Bundle?): Int {
@@ -68,9 +84,16 @@ class MediaHomeFragment : BaseMvpFragment<MediaHomePresenter>(), MediaHomeView,
 
     }
 
+
+
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-        mPresenter.getData()
+        if(!isFirstInit){
+            isFirstInit = true
+            onLoading("")
+            mPresenter.getData()
+        }
+
     }
 
     override fun initView() {

@@ -8,6 +8,6 @@ class HttpResult<T> {
     var result: T? = null
 
     val isSuccess: Boolean
-        get() = if (code == 0) true else false
+        get() = if (code == 200) true else false
 
 }

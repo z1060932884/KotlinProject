@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="220dp"
+
+    >
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+        android:id="@+id/picture"
+        android:layout_width="130dp"
+        android:layout_height="match_parent"
+        android:src="@color/grey_200"
+        app:qmui_corner_radius="@dimen/len_10"
+        android:layout_marginTop="@dimen/len_16"
+        android:layout_marginLeft="@dimen/len_16"
+        android:layout_marginBottom="@dimen/len_16"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/len_16"
+        android:layout_marginLeft="@dimen/len_10"
+        android:layout_marginRight="@dimen/len_16"
+        android:layout_marginBottom="@dimen/len_16"
+        >
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@color/base_text_dark"
+            android:textSize="@dimen/font_16"
+            android:textStyle="bold"
+            android:maxLines="1"
+            />
+        <TextView
+            android:id="@+id/tvTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@color/base_text_light"
+            android:textSize="@dimen/len_14"
+            android:layout_marginTop="@dimen/len_6"
+            />
+
+        <TextView
+            android:id="@+id/tvActors"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:textColor="@color/base_text_light"
+            android:textSize="@dimen/len_14"
+            android:maxLines="3"
+            />
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/base_text_light"
+            android:textSize="@dimen/len_14"
+            android:layout_marginTop="@dimen/len_6"
+            android:maxLines="1"
+            />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+
+        <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:text="播放"
+            android:textSize="@dimen/len_16"
+            android:textColor="@color/white"
+            app:qmui_backgroundColor="@color/common_blue_start"
+            app:qmui_radius="@dimen/len_16"
+            android:padding="@dimen/len_6"
+            android:gravity="center"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

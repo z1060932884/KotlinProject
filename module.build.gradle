@@ -37,6 +37,15 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    repositories {
+        flatDir {
+            dirs  project(':baselibrary').file('libs')
+        }
+    }
+}
+dependencies{
+    api(name: 'bugly_crashreport_upgrade-1.4.2', ext: 'aar')
 }
 
 

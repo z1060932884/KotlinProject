@@ -23,7 +23,7 @@ android {
         }
     }
 
-    kotlinOptions{
+    kotlinOptions {
         jvmTarget = "1.8"
     }
 
@@ -32,6 +32,11 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 
 }
 
@@ -48,8 +53,18 @@ dependencies {
     androidTestApi 'androidx.test.espresso:espresso-core:3.2.0'
     api "org.jetbrains.anko:anko-commons:$anko_version"
 
+    //刷新控件
+    api rootProject.ext.dependencies.SmartRefreshLayout
+
     //    //阿里路由框架
     api 'com.alibaba:arouter-api:1.4.1'
+
+    //bugly
+//    api 'com.tencent.bugly:crashreport:latest.release'
+
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+
+    //api 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
     //rx+retrofit+autodispose
     api 'io.reactivex.rxjava2:rxkotlin:2.4.0'
@@ -92,6 +107,9 @@ dependencies {
     api 'com.blankj:utilcode:1.23.4'
     api 'net.qiujuer.genius:res:2.1.1'
     api 'net.qiujuer.genius:ui:2.1.1'
+    api 'com.qmuiteam:qmui:2.0.0-alpha02'
+
+    //    api 'com.qmuiteam:qmui:1.2.0'
 
     //longingView
     api 'com.wang.avi:library:2.1.3'
@@ -142,4 +160,6 @@ dependencies {
 
     //    api files('libs/tbs_sdk_thirdapp_v4.3.0.1148_43697.jar')
     api 'cn.yc:WebViewLib:1.2.2'
+//    api files('libs/bugly_crash_release.jar')
+    api(name: 'bugly_crashreport_upgrade-1.4.2', ext: 'aar')
 }

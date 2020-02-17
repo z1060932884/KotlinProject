@@ -42,7 +42,7 @@
             android:value="portrait|landscape" />
 
 
-        <activity android:name=".MainActivity">
+        <activity android:name="com.zzj.media.ui.MediaActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
